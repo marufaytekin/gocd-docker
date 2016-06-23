@@ -41,7 +41,6 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
  && su - go -c "echo strict-ssl=false >> ~/.npmrc" \
  && su - go -c "echo config="strict-ssl=false" >> ~/.npmrc" \
  && su - go -c "echo minTimeout=300000 >> ~/.npmrc" \
- && su - go -c "echo registry=http://repo.mkk.com.tr/artifactory/api/npm/npm >> ~/.npmrc"
 
 
 ###########################################################
