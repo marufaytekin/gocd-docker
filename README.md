@@ -1,8 +1,7 @@
-# GoCD Customized 
+# gocd-docker 
 
-This repo contains docker files and required configuration files to build GoCD server and agents as well as nginx web server.  
-
-GoCD - Continuous Delivery server - www.go.cd - customized for following:
+This repo contains docker files and required configuration files to build and run gocd server and agent.  
+gocd  (www.go.cd) customized for following:
  +  use docker-in-docker for goCD builds.
  +  maven, ant, and nodejs builds.
  +  use flyway to automate database updates.
