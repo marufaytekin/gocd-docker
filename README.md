@@ -1,11 +1,14 @@
 # gocd-docker 
 
 This repo contains docker files and required configuration files to build and run gocd server and agent.  
-gocd  (www.go.cd) customized for following:
- +  use docker-in-docker for goCD builds.
- +  maven, ant, and nodejs builds.
- +  use flyway to automate database updates.
- +  run capybara and cucumber tests.  
+
+gocd-agent includes following:
+
++ docker client to build and deploy containers.
++ maven, ant, and nodejs.
++ flyway
++ capybara, cucumber, selenium, firefox, and Xvfb.
+
 
 ## gocd-server 
 

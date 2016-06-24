@@ -11,10 +11,9 @@
 FROM gocd/gocd-agent:latest
 
 ###########################################################
-# add docker repos, install docker engine to use docker client
-# from the agent. In order to use docker client make sure you give r/w
-# prmissions to /var/run/docker.sock file on the docker host
-# which runs gocd agent container.
+# install docker engine to use docker client # from the agent.
+# In order to use docker client make sure you give r/w
+# prmissions to /var/run/docker.sock file on the docker host.
 ###########################################################
 RUN touch /etc/apt/sources.list.d/docker.list \
   && echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >>/etc/apt/sources.list.d/docker.list \
