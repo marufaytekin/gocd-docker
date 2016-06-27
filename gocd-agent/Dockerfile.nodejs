@@ -1,10 +1,9 @@
 ###########################################################
-# Build using: docker build -t gocd-agent .
+# Build using: docker build -f Dockerfile.nodejs -t gocd-agent .
 # based on official gocd/gocd-agent latest image.
 # installs:
 #    docker engine to enable docker in docker
-#    maven, ant, and nodejs for builds
-#    ruby, capybara, and cucumber requirements to run automated tests.
+#    nodejs for builds
 ###########################################################
 MAINTAINER marufaytekin
 
@@ -24,12 +23,6 @@ RUN touch /etc/apt/sources.list.d/docker.list \
 
 
 ###########################################################
-# installs maven and ant.
-###########################################################
-RUN apt-get install -y --force-yes maven
-
-
-###########################################################
 # install nodejs
 ###########################################################
 RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
@@ -40,21 +33,3 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
  && su - go -c "echo strict-ssl=false >> ~/.npmrc" \
  && su - go -c "echo config="strict-ssl=false" >> ~/.npmrc" \
  && su - go -c "echo minTimeout=300000 >> ~/.npmrc" \
-
-
-###########################################################
-# install ruby, capybara, and cucumber test requirements.
-###########################################################
-ADD Gemfile /var/go
-RUN apt-add-repository ppa:brightbox/ruby-ng \
- && apt-get update \
- && apt-get install -y --force-yes \
-      software-properties-common \
-      build-essential \
-      zlib1g-dev \
-      ruby1.9.3 \
-      firefox \
-      xvfb \
- && rm -rf /var/lib/apt/lists/* \
- && gem install bundler \
- && su - go -c "bundle install"
