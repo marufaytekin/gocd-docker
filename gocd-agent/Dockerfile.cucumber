@@ -35,7 +35,8 @@ RUN apt-add-repository ppa:brightbox/ruby-ng \
       ruby1.9.3 \
       firefox \
       xvfb \
- && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /var/lib/apt/lists/*
 
 RUN gem install bundler
+
 RUN su - go -c "bundle install"
