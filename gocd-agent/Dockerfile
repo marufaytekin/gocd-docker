@@ -10,6 +10,7 @@ FROM gocd/gocd-agent:latest
 
 MAINTAINER marufaytekin
 
+
 ###########################################################
 # install docker engine to use docker client # from the agent.
 # In order to use docker client make sure you give r/w
@@ -43,18 +44,22 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
 
 
 ###########################################################
-# install ruby, capybara, and cucumber test requirements.
+# install ruby, capybara, and cucumber.
 ###########################################################
-ADD Gemfile /var/go
+
+# give go user sudo rights
+RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+
+# install requirements.
 RUN apt-add-repository ppa:brightbox/ruby-ng \
- && apt-get update \
- && apt-get install -y --force-yes \
-      software-properties-common \
-      build-essential \
-      zlib1g-dev \
-      ruby1.9.3 \
-      firefox \
-      xvfb \
- && rm -rf /var/lib/apt/lists/* \
- && gem install bundler \
- && su - go -c "bundle install"
+  && apt-get update
+RUN apt-get install -y --force-yes software-properties-common
+RUN apt-get install -y --force-yes build-essential
+RUN apt-get install -y --force-yes zlib1g-dev
+RUN apt-get install -y --force-yes ruby1.9.3
+RUN apt-get install -y --force-yes firefox
+RUN apt-get install -y --force-yes xvfb
+
+RUN gem install bundler
+ADD Gemfile /var/go
+RUN su - go -c "bundle install"
