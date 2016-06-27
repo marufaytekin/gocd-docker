@@ -6,9 +6,9 @@
 #    maven, ant, and nodejs for builds
 #    ruby, capybara, and cucumber requirements to run automated tests.
 ###########################################################
-MAINTAINER marufaytekin
-
 FROM gocd/gocd-agent:latest
+
+MAINTAINER marufaytekin
 
 ###########################################################
 # install docker engine to use docker client # from the agent.
