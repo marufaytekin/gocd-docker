@@ -4,7 +4,6 @@
 # installs:
 #    docker engine to enable docker in docker
 #    maven, ant, and nodejs for builds
-#    flyway to automate database updates
 #    ruby, capybara, and cucumber requirements to run automated tests.
 ###########################################################
  
@@ -40,16 +39,6 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
  && su - go -c "echo strict-ssl=false >> ~/.npmrc" \
  && su - go -c "echo config="strict-ssl=false" >> ~/.npmrc" \
  && su - go -c "echo minTimeout=300000 >> ~/.npmrc" \
-
-
-###########################################################
-# install flyway commandline to run database updates.
-###########################################################
-RUN curl -O --insecure http://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0/flyway-commandline-4.0-linux-x64.tar.gz \
-    && cd /opt; tar -xzvf /tmp/flyway-commandline-4.0-linux-x64.tar.gz \
-    && chown -R  go:go flyway-4.0; ln -s flyway-4.0/ flyway \
-    && chown -R go:go flyway \
-    && rm /tmp/flyway-commandline-4.0-linux-x64.tar.gz
 
 
 ###########################################################

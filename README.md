@@ -6,7 +6,6 @@ gocd-agent includes following:
 
 + docker client to build and deploy containers.
 + maven, ant, and nodejs.
-+ flyway
 + capybara, cucumber, selenium, firefox, and Xvfb.
 
 
