@@ -32,4 +32,10 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
  && su - go -c "touch ~/.npmrc" \
  && su - go -c "echo strict-ssl=false >> ~/.npmrc" \
  && su - go -c "echo config="strict-ssl=false" >> ~/.npmrc" \
- && su - go -c "echo minTimeout=300000 >> ~/.npmrc" \
+ && su - go -c "echo minTimeout=300000 >> ~/.npmrc"
+
+ ###########################################################
+ # fix path
+ ###########################################################
+RUN printf 'export PATH="$PATH:/var/go/.nvm/versions/node/v5.9.0/bin"' >> /etc/default/go-agent \
+ && printf "\n" >> /etc/default/go-agent
