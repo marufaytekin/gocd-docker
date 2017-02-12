@@ -1,5 +1,5 @@
 ###########################################################
-# Build using: docker build -f Dockerfile.nodejs -t gocd-agent .
+# Build using: docker build -t gocd-agent .
 # based on official gocd/gocd-agent latest image.
 # installs:
 #    docker engine to enable docker in docker
