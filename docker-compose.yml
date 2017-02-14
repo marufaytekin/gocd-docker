@@ -1,0 +1,29 @@
+version: "3"
+services:
+  gocd-server:
+    build: ./gocd-server
+    container_name: gocd-server
+    ports:
+     - "8153:8153"
+    expose:
+     - "8154"
+    volumes:
+     - server-server:/var/lib/go-server
+     - server-plugins:/var/lib/go-server/plugins/external
+     - server-logs:/var/log/go-server
+     - server-go:/etc/go
+     - server-addons:/go-addons
+
+  gocd-agent:
+    build: gocd-agent/.
+    depends_on:
+     - gocd-server
+    environment:
+     - "GO_SERVER_URL=https://gocd-server:8154/go"
+
+volumes:
+  server-server:
+  server-plugins:
+  server-logs:
+  server-go:
+  server-addons:
