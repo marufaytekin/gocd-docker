@@ -2,6 +2,40 @@
 
 This repo contains docker files and required configuration files to build and run gocd server and agent.  
 
+
+
+```
+docker-compose up
+```
+wait for it to be fully started, it can take a while. You're looking for something like this in the logs
+```
+gocd-server    | == Thu Feb 16 20:39:12 UTC 2017: Waiting for Go Server dashboard to be accessible ...
+gocd-server    | (unknown):-1 warning: already initialized constant Input
+gocd-server    |
+gocd-server    |
+gocd-server    | ----------------------------------------------------------
+gocd-server    | Go Server has started on port 8153 inside this container (453390d83f71)!
+gocd-server    |
+gocd-server    | To be able to connect to it in a browser, you need to find the port which has been mapped to port 8153 for this container.
+gocd-server    |
+gocd-server    | If you're using docker on a Linux box, you can do this:
+gocd-server    | echo http://localhost:$(docker inspect --format='{{(index (index .NetworkSettings.Ports "8153/tcp") 0).HostPort}}' 453390d83f71)
+gocd-server    |
+gocd-server    | If you're using docker through boot2docker, on a Mac, do this:
+gocd-server    | echo http://$(docker-machine ip):$(docker inspect --format='{{(index (index .NetworkSettings.Ports "8153/tcp") 0).HostPort}}' 453390d83f71)
+gocd-server    |
+gocd-server    | That command will output the URL through which you should be able to access the Go Server.
+gocd-server    | ----------------------------------------------------------
+gocd-server    |
+gocd-server    |
+gocd-server    | Thu Feb 16 20:39:18 UTC 2017: This message will stay for 30 seconds and then the Go Server logs will be shown. Run docker with the option: '-e MSG_TIME=0' to disable this wait time.
+```
+
+go to http://localhost:8080/go
+
+
+# Running without docker-compose
+
 gocd-agent includes following:
 
 + docker client to build and deploy containers.
