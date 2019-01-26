@@ -3,13 +3,11 @@
 # based on official gocd/gocd-agent latest image.
 # installs:
 #    docker engine to enable docker in docker
-#    maven, ant, and nodejs for builds
-#    ruby, capybara, and cucumber requirements to run automated tests.
+#    nodejs for builds
 ###########################################################
 FROM gocd/gocd-agent:latest
 
 MAINTAINER marufaytekin
-
 
 ###########################################################
 # install docker engine to use docker client # from the agent.
@@ -25,12 +23,6 @@ RUN touch /etc/apt/sources.list.d/docker.list \
 
 
 ###########################################################
-# installs maven and ant.
-###########################################################
-RUN apt-get install -y --force-yes maven
-
-
-###########################################################
 # install nodejs
 ###########################################################
 RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
@@ -40,26 +32,10 @@ RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers \
  && su - go -c "touch ~/.npmrc" \
  && su - go -c "echo strict-ssl=false >> ~/.npmrc" \
  && su - go -c "echo config="strict-ssl=false" >> ~/.npmrc" \
- && su - go -c "echo minTimeout=300000 >> ~/.npmrc" \
+ && su - go -c "echo minTimeout=300000 >> ~/.npmrc"
 
-
-###########################################################
-# install ruby, capybara, and cucumber.
-###########################################################
-
-# give go user sudo rights
-RUN echo "go    ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
-
-# install requirements.
-RUN apt-add-repository ppa:brightbox/ruby-ng \
-  && apt-get update
-RUN apt-get install -y --force-yes software-properties-common
-RUN apt-get install -y --force-yes build-essential
-RUN apt-get install -y --force-yes zlib1g-dev
-RUN apt-get install -y --force-yes ruby1.9.3
-RUN apt-get install -y --force-yes firefox
-RUN apt-get install -y --force-yes xvfb
-
-RUN gem install bundler
-ADD Gemfile /var/go
-RUN su - go -c "bundle install"
+ ###########################################################
+ # fix path
+ ###########################################################
+RUN printf 'export PATH="$PATH:/var/go/.nvm/versions/node/v5.9.0/bin"' >> /etc/default/go-agent \
+ && printf "\n" >> /etc/default/go-agent
